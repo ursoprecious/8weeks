@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="프리랜서 포트폴리오 — 디자인과 개발을 아우르는 작업물을 모은 공간입니다." />
+  <title>Studio — Freelance Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #efe9df;
+      --ink: #1a1815;
+      --muted: #6b6660;
+      --accent: #c4452d;
+      --line: #1a18151a;
+      --paper: #f6f1e8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ----- NAV ----- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: multiply;
+    }
+
+    .logo {
+      font-family: "Fraunces", serif;
+      font-weight: 400;
+      font-size: 22px;
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 0.6; }
+
+    /* ----- HERO ----- */
+    .hero {
+      min-height: 100vh;
+      padding: 140px 40px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeUp 0.8s 0.1s both;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-weight: 300;
+      font-size: clamp(56px, 11vw, 180px);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin-top: 32px;
+      font-variation-settings: "opsz" 144;
+    }
+
+    .hero h1 .italic {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    .word {
+      display: inline-block;
+      animation: fadeUp 1s both;
+    }
+    .word:nth-child(1) { animation-delay: 0.2s; }
+    .word:nth-child(2) { animation-delay: 0.35s; }
+    .word:nth-child(3) { animation-delay: 0.5s; }
+    .word:nth-child(4) { animation-delay: 0.65s; }
+
+    .hero-footer {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      margin-top: 120px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      animation: fadeUp 1s 0.9s both;
+    }
+
+    .hero-footer .col span {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-footer .col p {
+      font-family: "Fraunces", serif;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    /* ----- SECTIONS ----- */
+    section {
+      padding: 120px 40px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    .section-head .num {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .section-head h2 {
+      font-family: "Fraunces", serif;
+      font-weight: 300;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+    }
+
+    .section-head h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ----- WORKS ----- */
+    .works {
+      display: grid;
+      gap: 0;
+    }
+
+    .work {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 200px;
+      gap: 40px;
+      padding: 32px 0;
+      border-top: 1px solid var(--line);
+      align-items: baseline;
+      cursor: pointer;
+      transition: padding 0.4s ease;
+    }
+
+    .work:last-child { border-bottom: 1px solid var(--line); }
+
+    .work:hover {
+      padding-left: 24px;
+      padding-right: 24px;
+      background: var(--paper);
+    }
+
+    .work .index {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .work .title {
+      font-family: "Fraunces", serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .work:hover .title { font-style: italic; color: var(--accent); }
+
+    .work .category {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .work .year {
+      font-size: 14px;
+      color: var(--muted);
+      text-align: right;
+      letter-spacing: 0.05em;
+    }
+
+    /* ----- SERVICES ----- */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .service {
+      background: var(--bg);
+      padding: 48px 32px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+
+    .service:hover { background: var(--paper); }
+
+    .service .num {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .service h3 {
+      font-family: "Fraunces", serif;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin: 24px 0 16px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ----- CONTACT ----- */
+    .contact {
+      padding: 160px 40px;
+      text-align: center;
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+    }
+
+    .contact .label {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .contact h2 {
+      font-family: "Fraunces", serif;
+      font-weight: 300;
+      font-size: clamp(48px, 9vw, 128px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+    }
+
+    .contact h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .contact a.email {
+      display: inline-block;
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: 28px;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact a.email:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ----- FOOTER ----- */
+    footer {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .socials {
+      display: flex;
+      gap: 24px;
+    }
+    .socials a { transition: color 0.2s; }
+    .socials a:hover { color: var(--accent); }
+
+    /* ----- ANIMATIONS ----- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 768px) {
+      nav { padding: 20px; }
+      .nav-links { gap: 18px; font-size: 13px; }
+      .hero { padding: 120px 20px 60px; }
+      .hero-footer { grid-template-columns: 1fr; gap: 24px; margin-top: 80px; }
+      section { padding: 80px 20px; }
+      .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 48px; }
+      .work { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+      .work:hover { padding-left: 0; padding-right: 0; }
+      .work .year { text-align: left; }
+      .services { grid-template-columns: 1fr; }
+      .contact { padding: 100px 20px; }
+      footer { flex-direction: column; gap: 16px; padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">Studio⟡</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Independent Studio — Est. 2024</div>
+      <h1>
+        <span class="word">Crafting</span>
+        <span class="word italic">quiet</span><br />
+        <span class="word">digital</span>
+        <span class="word">experiences.</span>
+      </h1>
+    </div>
+
+    <div class="hero-footer">
+      <div class="col">
+        <span>Based in</span>
+        <p>Daejeon, working worldwide.</p>
+      </div>
+      <div class="col">
+        <span>Focus</span>
+        <p>Brand systems, editorial web, product design.</p>
+      </div>
+      <div class="col">
+        <span>Availability</span>
+        <p>Now booking Q3 — Q4 2026.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-head">
+      <div class="num">01 — Selected Work</div>
+      <h2>Recent projects built for thoughtful clients, from <em>rituals</em> to retailers.</h2>
+    </div>
+
+    <div class="works">
+      <div class="work">
+        <div class="index">№ 01</div>
+        <div class="title">Maison Levant</div>
+        <div class="category">Brand Identity · Web</div>
+        <div class="year">2026</div>
+      </div>
+      <div class="work">
+        <div class="index">№ 02</div>
+        <div class="title">Folio Journal</div>
+        <div class="category">Editorial · Publishing</div>
+        <div class="year">2025</div>
+      </div>
+      <div class="work">
+        <div class="index">№ 03</div>
+        <div class="title">Noon Ceramics</div>
+        <div class="category">E-commerce · Art Direction</div>
+        <div class="year">2025</div>
+      </div>
+      <div class="work">
+        <div class="index">№ 04</div>
+        <div class="title">Atlas Weather</div>
+        <div class="category">Product Design · iOS</div>
+        <div class="year">2024</div>
+      </div>
+      <div class="work">
+        <div class="index">№ 05</div>
+        <div class="title">Slow Coffee Co.</div>
+        <div class="category">Packaging · Web</div>
+        <div class="year">2024</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-head">
+      <div class="num">02 — Services</div>
+      <h2>A small practice, offering <em>three</em> things — done with care.</h2>
+    </div>
+
+    <div class="services">
+      <div class="service">
+        <div class="num">i.</div>
+        <div>
+          <h3>Identity<br />& Brand</h3>
+          <p>Logos, wordmarks, and full visual systems for founders who want a mark that lasts longer than a trend cycle.</p>
+        </div>
+      </div>
+      <div class="service">
+        <div class="num">ii.</div>
+        <div>
+          <h3>Web<br />& Editorial</h3>
+          <p>From marketing sites to digital publications — typography-led builds that feel intentional on every scroll.</p>
+        </div>
+      </div>
+      <div class="service">
+        <div class="num">iii.</div>
+        <div>
+          <h3>Product<br />Design</h3>
+          <p>Interface design and prototyping for early-stage products where clarity matters more than cleverness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="label">Let's make something</div>
+    <h2>Say <em>hello</em>.</h2>
+    <a href="mailto:hello@studio.com" class="email">hello@studio.com</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2026 Studio — All rights reserved.</div>
+    <div class="socials">
+      <a href="#">Instagram</a>
+      <a href="#">Are.na</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
